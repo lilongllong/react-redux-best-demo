@@ -3,8 +3,6 @@ import reducers from '../reducers';
 
 let enhancer = process.env.NODE_ENV !== 'production' ? require('./enhancer.dev.js') : require('./enhancer.js');
 
-const initState = {};
-
-const store = createStore(reducers, initState, enhancer);
-
-export default store;
+export default function configStore(initState = {}) {
+    return enhancer(createStore)(reducers, initState);
+}
